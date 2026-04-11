@@ -1,0 +1,119 @@
+/* src/styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-ink: #101216;
+  --bg-panel: #181b21;
+  --line-soft: #2b323f;
+  --line-strong: #3d4656;
+  --text-main: #f3efe5;
+  --text-muted: #b6b9c2;
+  --accent-gold: #c99b48;
+  --accent-cyan: #3ea5b5;
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+    background:
+      radial-gradient(circle at 15% -10%, rgba(201, 155, 72, 0.22), transparent 36%),
+      radial-gradient(circle at 85% 0%, rgba(62, 165, 181, 0.18), transparent 34%),
+      linear-gradient(145deg, #0d1016 0%, #121722 45%, #0f131a 100%);
+    color: var(--text-main);
+  }
+  
+  * {
+    border-color: var(--line-soft);
+  }
+}
+
+@layer components {
+  .app-shell {
+    background:
+      linear-gradient(to bottom, rgba(16, 18, 22, 0.55), rgba(16, 18, 22, 0.82)),
+      repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.02) 0,
+        rgba(255, 255, 255, 0.02) 1px,
+        transparent 1px,
+        transparent 26px
+      );
+  }
+
+  .card-glow {
+    @apply relative overflow-hidden;
+  }
+  
+  .card-glow::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: radial-gradient(
+      600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      rgba(255, 255, 255, 0.06),
+      transparent 40%
+    );
+  }
+  
+  .card-glow:hover::before {
+    @apply opacity-100;
+  }
+
+  .metric-bar {
+    @apply h-2 rounded-full overflow-hidden bg-slate-800;
+  }
+
+  .metric-bar-fill {
+    @apply h-full rounded-full transition-all duration-500 ease-out;
+  }
+
+  .role-badge-government {
+    @apply bg-government-900/50 text-government-400 border-government-700;
+  }
+
+  .role-badge-bank {
+    @apply bg-bank-900/50 text-bank-400 border-bank-700;
+  }
+
+  .role-badge-investor {
+    @apply bg-investor-900/50 text-investor-400 border-investor-700;
+  }
+
+  .role-badge-citizen {
+    @apply bg-citizen-900/50 text-citizen-400 border-citizen-700;
+  }
+
+  .action-card {
+    @apply p-4 rounded-xl border-2 cursor-pointer transition-all duration-200;
+    @apply hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  .action-card-selected {
+    @apply ring-2 ring-offset-2 ring-offset-slate-900;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(51 65 85) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full;
+  }
+}
