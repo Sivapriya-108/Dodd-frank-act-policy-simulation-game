@@ -19,11 +19,11 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-600 to-orange-700 shadow-lg shadow-amber-950/40 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-government-600 to-government-800 shadow-lg shadow-government-900/40 flex items-center justify-center">
               <Landmark className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-amber-100 tracking-tight">Dodd-Frank Simulation</h1>
+              <h1 className="text-lg font-semibold text-slate-100 tracking-tight">Dodd-Frank Simulation</h1>
               {room && (
                 <p className="text-xs text-zinc-400">Room: {room.code}</p>
               )}

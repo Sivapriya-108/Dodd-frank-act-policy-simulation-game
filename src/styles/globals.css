@@ -4,12 +4,12 @@
 @tailwind utilities;
 
 :root {
-  --bg-ink: #101216;
-  --bg-panel: #181b21;
-  --line-soft: #2b323f;
-  --line-strong: #3d4656;
-  --text-main: #f3efe5;
-  --text-muted: #b6b9c2;
+  --bg-ink: #f6f1e7;
+  --bg-panel: #efe7d8;
+  --line-soft: #d7ccb7;
+  --line-strong: #c2b59a;
+  --text-main: #2f2a22;
+  --text-muted: #5f5749;
   --accent-gold: #c99b48;
   --accent-cyan: #3ea5b5;
 }
@@ -18,9 +18,9 @@
   body {
     @apply antialiased;
     background:
-      radial-gradient(circle at 15% -10%, rgba(201, 155, 72, 0.22), transparent 36%),
-      radial-gradient(circle at 85% 0%, rgba(62, 165, 181, 0.18), transparent 34%),
-      linear-gradient(145deg, #0d1016 0%, #121722 45%, #0f131a 100%);
+      radial-gradient(circle at 8% -12%, rgba(201, 155, 72, 0.2), transparent 40%),
+      radial-gradient(circle at 92% 3%, rgba(62, 165, 181, 0.12), transparent 36%),
+      linear-gradient(145deg, #f7f2e9 0%, #f2eadc 45%, #efe6d6 100%);
     color: var(--text-main);
   }
   
@@ -32,11 +32,11 @@
 @layer components {
   .app-shell {
     background:
-      linear-gradient(to bottom, rgba(16, 18, 22, 0.55), rgba(16, 18, 22, 0.82)),
+      linear-gradient(to bottom, rgba(255, 251, 242, 0.55), rgba(245, 236, 220, 0.7)),
       repeating-linear-gradient(
         90deg,
-        rgba(255, 255, 255, 0.02) 0,
-        rgba(255, 255, 255, 0.02) 1px,
+        rgba(66, 50, 22, 0.035) 0,
+        rgba(66, 50, 22, 0.035) 1px,
         transparent 1px,
         transparent 26px
       );

@@ -2,7 +2,7 @@
 import { cn } from '../../lib/utils'
 
 const variants = {
-  primary: 'bg-gradient-to-r from-amber-700 to-orange-700 hover:from-amber-600 hover:to-orange-600 text-amber-50 shadow-lg shadow-amber-950/30',
+  primary: 'bg-gradient-to-r from-government-700 to-government-600 hover:from-government-600 hover:to-government-500 text-slate-50 shadow-lg shadow-government-900/30',
   secondary: 'bg-zinc-900/80 hover:bg-zinc-800 text-zinc-100 border border-zinc-700',
   danger: 'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white',
   success: 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white',
@@ -33,7 +33,7 @@ export function Button({
     <button
       className={cn(
         'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200',
-        'focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-zinc-950',
+        'focus:outline-none focus:ring-2 focus:ring-government-500 focus:ring-offset-2 focus:ring-offset-zinc-950',
         'disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none',
         'active:scale-[0.98]',
         variants[variant],
