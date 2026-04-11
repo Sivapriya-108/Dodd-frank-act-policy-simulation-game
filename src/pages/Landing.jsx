@@ -90,7 +90,7 @@ export default function Landing() {
         <div className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-4 pb-8 text-white">
           <h1 className="text-5xl md:text-7xl font-bold font-serif leading-tight">
             Too Big To Fail
-            <span className="block text-government-100">simulation game</span>
+            <span className="block text-government-100">Simulation Game</span>
           </h1>
         </div>
       </section>
