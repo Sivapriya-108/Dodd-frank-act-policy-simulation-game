@@ -99,14 +99,13 @@ export default function Landing() {
         <div className="max-w-6xl mx-auto flex flex-col items-center">
           <div className="text-center mb-10 animate-fade-in">
             <p className="text-lg text-stone-700 max-w-2xl mx-auto">
-              Experience financial regulation dynamics in real-time. Navigate the 2008 crisis,
-              balance stability and growth, and discover the tradeoffs of regulatory policy.
+              Play through the 2008 crisis - make decisions, manage risk, and shape the system’s future.
             </p>
           </div>
 
           <div className="w-full max-w-6xl mb-12">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-xl md:text-2xl font-semibold text-zinc-900 font-serif">Choose Your Role</h2>
+              <h2 className="text-xl md:text-2xl font-semibold text-zinc-900 font-serif">Player Cards</h2>
               <p className="text-sm text-stone-700">Each role sees different incentives and tradeoffs</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
