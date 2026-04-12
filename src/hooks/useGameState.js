@@ -8,7 +8,7 @@ import {
   selectRandomEvent,
   checkGameEnd 
 } from '../lib/gameEngine'
-import { ROLE_DISTRIBUTION, PHASES } from '../lib/constants'
+import { PHASES, getBalancedRoleCounts } from '../lib/constants'
 import { shuffleArray } from '../lib/utils'
 
 export function useGameActions() {
@@ -19,20 +19,13 @@ export function useGameActions() {
 
     const unassigned = players.filter(p => !p.role)
     const shuffled = shuffleArray(unassigned)
-    
-    const roles = []
-    // Banks
-    for (let i = 0; i < Math.min(ROLE_DISTRIBUTION.bank, Math.floor(shuffled.length * 0.25)); i++) {
-      roles.push('bank')
-    }
-    // Investors
-    for (let i = 0; i < Math.min(ROLE_DISTRIBUTION.investor, Math.floor(shuffled.length * 0.25)); i++) {
-      roles.push('investor')
-    }
-    // Rest are citizens
-    while (roles.length < shuffled.length) {
-      roles.push('citizen')
-    }
+    const roleCounts = getBalancedRoleCounts(players.length)
+
+    const roles = [
+      ...Array(roleCounts.bank).fill('bank'),
+      ...Array(roleCounts.investor).fill('investor'),
+      ...Array(roleCounts.citizen).fill('citizen')
+    ]
 
     const shuffledRoles = shuffleArray(roles)
 

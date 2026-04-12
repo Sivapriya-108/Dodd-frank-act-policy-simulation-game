@@ -10,7 +10,7 @@ import { PlayerList } from '../components/game/PlayerList'
 import { useGame } from '../context/GameContext'
 import { useRealtime } from '../hooks/useRealtime'
 import { useGameActions } from '../hooks/useGameState'
-import { ROLE_DISTRIBUTION } from '../lib/constants'
+import { getBalancedRoleCounts } from '../lib/constants'
 
 export default function Lobby() {
   const { roomCode } = useParams()
@@ -76,12 +76,7 @@ export default function Lobby() {
   const canStart = players.length >= minPlayers
 
   // Calculate role counts
-  const roleBreakdown = {
-    government: players.filter(p => p.role === 'government').length,
-    bank: Math.min(ROLE_DISTRIBUTION.bank, Math.floor((players.length - 1) * 0.25)),
-    investor: Math.min(ROLE_DISTRIBUTION.investor, Math.floor((players.length - 1) * 0.25)),
-    citizen: Math.max(0, players.length - 1 - Math.min(ROLE_DISTRIBUTION.bank, Math.floor((players.length - 1) * 0.25)) - Math.min(ROLE_DISTRIBUTION.investor, Math.floor((players.length - 1) * 0.25)))
-  }
+  const roleBreakdown = getBalancedRoleCounts(players.length)
 
   return (
     <Layout className="bg-zinc-950">

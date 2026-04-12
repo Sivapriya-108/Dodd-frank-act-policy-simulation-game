@@ -13,6 +13,19 @@ export const ROLE_DISTRIBUTION = {
   citizen: 12
 }
 
+export function getBalancedRoleCounts(totalPlayers) {
+  const nonGovernmentPlayers = Math.max(0, totalPlayers - 1)
+  const baseCount = Math.floor(nonGovernmentPlayers / 3)
+  const remainder = nonGovernmentPlayers % 3
+
+  return {
+    government: totalPlayers > 0 ? 1 : 0,
+    bank: baseCount + (remainder > 0 ? 1 : 0),
+    investor: baseCount + (remainder > 1 ? 1 : 0),
+    citizen: baseCount
+  }
+}
+
 export const ROLE_COLORS = {
   government: {
     primary: 'government',
