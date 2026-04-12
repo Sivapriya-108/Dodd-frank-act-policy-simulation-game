@@ -17,10 +17,15 @@ export function useGameActions() {
   const assignRoles = useCallback(async () => {
     if (!room || players.length < 2) return
 
-    const governmentPlayerId = room.created_by || players.find(p => p.role === 'government')?.id
+    const governmentPlayer =
+      players.find(p => p.id === room.created_by) ||
+      players.find(p => p.role === 'government') ||
+      players[0]
+
+    const governmentPlayerId = governmentPlayer?.id
     const assignablePlayers = players.filter(p => p.id !== governmentPlayerId)
     const shuffled = shuffleArray(assignablePlayers)
-    const totalPlayers = governmentPlayerId ? assignablePlayers.length + 1 : players.length
+    const totalPlayers = assignablePlayers.length + 1
     const roleCounts = getBalancedRoleCounts(totalPlayers)
 
     const roles = [
@@ -30,6 +35,14 @@ export function useGameActions() {
     ]
 
     const shuffledRoles = shuffleArray(roles)
+
+    // Ensure there is exactly one government role before assigning other roles.
+    if (governmentPlayerId) {
+      await supabase
+        .from('players')
+        .update({ role: 'government' })
+        .eq('id', governmentPlayerId)
+    }
 
     // Update each player
     for (let i = 0; i < shuffled.length; i++) {
