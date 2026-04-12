@@ -84,11 +84,11 @@ export default function Lobby() {
   }
 
   return (
-    <Layout>
+    <Layout className="bg-[#f6f1e7] bg-none">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">{room?.name}</h1>
-          <p className="text-slate-400">Waiting for players to join...</p>
+          <h1 className="text-3xl font-bold text-zinc-900 mb-2">{room?.name}</h1>
+          <p className="text-zinc-700">Waiting for players to join...</p>
         </div>
 
         {/* Room Code Card */}
@@ -127,21 +127,21 @@ export default function Lobby() {
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
                     <Crown className="w-4 h-4 text-yellow-500" />
-                    <span className="text-slate-300">Government</span>
+                    <span className="text-zinc-100">Government</span>
                   </div>
-                  <Badge role="government">{roleBreakdown.government}</Badge>
+                  <Badge role="government" className="text-white">{roleBreakdown.government}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300">Banks</span>
-                  <Badge role="bank">~{roleBreakdown.bank}</Badge>
+                  <span className="text-zinc-100">Banks</span>
+                  <Badge role="bank" className="text-white">~{roleBreakdown.bank}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300">Investors</span>
-                  <Badge role="investor">~{roleBreakdown.investor}</Badge>
+                  <span className="text-zinc-100">Investors</span>
+                  <Badge role="investor" className="text-white">~{roleBreakdown.investor}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300">Citizens</span>
-                  <Badge role="citizen">~{roleBreakdown.citizen}</Badge>
+                  <span className="text-zinc-100">Citizens</span>
+                  <Badge role="citizen" className="text-white">~{roleBreakdown.citizen}</Badge>
                 </div>
                 <p className="text-xs text-slate-500 mt-4">
                   Roles will be randomly assigned when the game starts

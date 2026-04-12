@@ -1,9 +1,9 @@
 // src/components/layout/Layout.jsx
 import { Header } from './Header'
 
-export function Layout({ children }) {
+export function Layout({ children, className = '' }) {
   return (
-    <div className="min-h-screen app-shell">
+    <div className={`min-h-screen app-shell ${className}`}>
       <Header />
       <main className="pt-16">
         {children}
