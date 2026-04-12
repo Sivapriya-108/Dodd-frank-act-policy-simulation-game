@@ -1,6 +1,6 @@
 // src/context/GameContext.jsx
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
-import { supabase } from '../lib/supabase'
+import { supabase, ensureSupabaseConfigured } from '../lib/supabase'
 
 const GameContext = createContext({})
 
@@ -13,6 +13,14 @@ export function GameProvider({ children }) {
   const [history, setHistory] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+
+  const normalizeErrorMessage = useCallback((err) => {
+    const msg = err?.message || 'Unknown error'
+    if (msg === 'Load failed' || msg === 'Failed to fetch' || /network|fetch/i.test(msg)) {
+      return 'Network request to Supabase failed. Check internet connection and verify Supabase URL/key in environment variables.'
+    }
+    return msg
+  }, [])
 
   // Load player from localStorage
   useEffect(() => {
@@ -37,6 +45,8 @@ export function GameProvider({ children }) {
     setLoading(true)
     setError(null)
     try {
+      ensureSupabaseConfigured()
+
       // Create room
       const { data: roomData, error: roomError } = await supabase
         .from('rooms')
@@ -77,17 +87,19 @@ export function GameProvider({ children }) {
       
       return roomData
     } catch (err) {
-      setError(err.message)
+      setError(normalizeErrorMessage(err))
       throw err
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [normalizeErrorMessage])
 
   const joinRoom = useCallback(async (code, playerName) => {
     setLoading(true)
     setError(null)
     try {
+      ensureSupabaseConfigured()
+
       // Find room
       const { data: roomData, error: roomError } = await supabase
         .from('rooms')
@@ -137,14 +149,15 @@ export function GameProvider({ children }) {
       
       return roomData
     } catch (err) {
-      setError(err.message)
+      setError(normalizeErrorMessage(err))
       throw err
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [normalizeErrorMessage])
 
   const leaveRoom = useCallback(async () => {
+    ensureSupabaseConfigured()
     if (player) {
       await supabase
         .from('players')
@@ -161,6 +174,7 @@ export function GameProvider({ children }) {
   }, [player])
 
   const fetchRoomData = useCallback(async (roomId) => {
+    ensureSupabaseConfigured()
     const [roomResult, stateResult, playersResult, historyResult] = await Promise.all([
       supabase.from('rooms').select('*').eq('id', roomId).single(),
       supabase.from('game_state').select('*').eq('room_id', roomId).single(),
