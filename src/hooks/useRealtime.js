@@ -17,6 +17,28 @@ export function useRealtime(roomId) {
   useEffect(() => {
     if (!roomId) return
 
+    let isActive = true
+
+    const refreshPlayers = async () => {
+      const { data, error } = await supabase
+        .from('players')
+        .select('*')
+        .eq('room_id', roomId)
+        .order('created_at')
+
+      if (!isActive || error || !data) return
+
+      setPlayers(data)
+
+      // Keep current player state in sync with latest DB values.
+      if (player) {
+        const updatedPlayer = data.find((p) => p.id === player.id)
+        if (updatedPlayer) {
+          setPlayer(updatedPlayer)
+        }
+      }
+    }
+
     // Create channel for this room
     const channel = supabase.channel(`room:${roomId}`)
     channelRef.current = channel
@@ -42,22 +64,7 @@ export function useRealtime(roomId) {
       .on('postgres_changes',
         { event: '*', schema: 'public', table: 'players', filter: `room_id=eq.${roomId}` },
         async () => {
-          // Refetch all players on any change
-          const { data } = await supabase
-            .from('players')
-            .select('*')
-            .eq('room_id', roomId)
-            .order('created_at')
-          if (data) {
-            setPlayers(data)
-            // Update current player if needed
-            if (player) {
-              const updatedPlayer = data.find(p => p.id === player.id)
-              if (updatedPlayer) {
-                setPlayer(updatedPlayer)
-              }
-            }
-          }
+          await refreshPlayers()
         }
       )
       .on('postgres_changes',
@@ -66,10 +73,21 @@ export function useRealtime(roomId) {
           setDecisions(prev => [...prev, payload.new])
         }
       )
-      .subscribe()
+      .subscribe(async (status) => {
+        if (status === 'SUBSCRIBED') {
+          await refreshPlayers()
+        }
+      })
+
+    // Poll as a fallback for cases where realtime events are delayed/dropped.
+    const pollId = setInterval(() => {
+      refreshPlayers()
+    }, 2500)
 
     // Cleanup
     return () => {
+      isActive = false
+      clearInterval(pollId)
       channel.unsubscribe()
     }
   }, [roomId, player?.id])
