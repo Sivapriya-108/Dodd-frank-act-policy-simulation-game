@@ -78,7 +78,7 @@ export default function Results() {
     <Layout>
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 className="text-3xl font-bold text-zinc-900 mb-2">
             Round {room?.current_round} Results
           </h1>
           <p className="text-slate-400">
@@ -94,13 +94,13 @@ export default function Results() {
                 {/* Policy */}
                 <div className="text-center p-4 bg-government-900/20 rounded-xl">
                   <Badge role="government" className="mb-2">Policy</Badge>
-                  <h3 className="font-semibold text-white">{currentPolicy?.name || 'N/A'}</h3>
+                  <h3 className="font-semibold text-zinc-100">{currentPolicy?.name || 'N/A'}</h3>
                 </div>
 
                 {/* Event */}
                 <div className="text-center p-4 bg-slate-800/50 rounded-xl">
                   <Badge variant="info" className="mb-2">Event</Badge>
-                  <h3 className="font-semibold text-white">
+                  <h3 className="font-semibold text-zinc-100">
                     {gameState?.current_event === 'none' ? 'Calm Markets' : 
                       gameState?.current_event?.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || 'N/A'}
                   </h3>
@@ -113,7 +113,7 @@ export default function Results() {
                     player?.role && `bg-${player.role}-900/20`
                   )}>
                     <Badge role={player?.role} className="mb-2">Your Action</Badge>
-                    <h3 className="font-semibold text-white">{myAction?.name || 'No action'}</h3>
+                    <h3 className="font-semibold text-zinc-100">{myAction?.name || 'No action'}</h3>
                     {myDecision?.score_change !== undefined && (
                       <p className={cn(
                         'text-lg font-bold mt-2',

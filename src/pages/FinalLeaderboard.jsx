@@ -108,7 +108,7 @@ export default function FinalLeaderboard() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4">Game Complete!</h1>
+          <h1 className="text-4xl font-bold text-zinc-900 mb-4">Game Complete!</h1>
           <div className={cn('text-2xl font-semibold mb-2', outcome.color)}>
             {outcome.title}
           </div>

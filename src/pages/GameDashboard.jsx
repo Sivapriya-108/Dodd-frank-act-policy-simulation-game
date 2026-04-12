@@ -90,7 +90,7 @@ export default function GameDashboard() {
                 </div>
                 <div>
                   <p className="text-sm text-slate-400">Round</p>
-                  <p className="text-2xl font-bold text-white">
+                  <p className="text-2xl font-bold text-zinc-100">
                     {room?.current_round || 0} / {room?.max_rounds || 10}
                   </p>
                 </div>
@@ -106,7 +106,7 @@ export default function GameDashboard() {
                 </div>
                 <div>
                   <p className="text-sm text-slate-400">Your Score</p>
-                  <p className="text-2xl font-bold text-white">{player?.score || 0}</p>
+                  <p className="text-2xl font-bold text-zinc-100">{player?.score || 0}</p>
                 </div>
               </div>
             </CardContent>
@@ -120,7 +120,7 @@ export default function GameDashboard() {
                 </div>
                 <div>
                   <p className="text-sm text-slate-400">Submitted</p>
-                  <p className="text-2xl font-bold text-white">{submittedCount} / {totalPlayers}</p>
+                  <p className="text-2xl font-bold text-zinc-100">{submittedCount} / {totalPlayers}</p>
                 </div>
               </div>
             </CardContent>
@@ -166,7 +166,7 @@ export default function GameDashboard() {
                         </div>
                         <div>
                           <Badge role="government" className="mb-2">Current Policy</Badge>
-                          <h3 className="text-xl font-semibold text-white">{currentPolicy.name}</h3>
+                          <h3 className="text-xl font-semibold text-zinc-100">{currentPolicy.name}</h3>
                           <p className="text-slate-400">{currentPolicy.description}</p>
                         </div>
                       </div>
