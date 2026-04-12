@@ -150,7 +150,7 @@ export default function Landing() {
                 <CardContent className="p-6">
                   <button
                     onClick={() => { setMode(null); setLocalError('') }}
-                    className="text-sm text-zinc-400 hover:text-zinc-200 mb-4"
+                    className="text-sm text-zinc-100 hover:text-white mb-4"
                   >
                     ← Back
                   </button>
@@ -161,7 +161,7 @@ export default function Landing() {
 
                   <form onSubmit={mode === 'create' ? handleCreate : handleJoin} className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-zinc-300 mb-2">
+                      <label className="block text-sm font-medium text-white mb-2">
                         Your Name
                       </label>
                       <input
@@ -169,14 +169,14 @@ export default function Landing() {
                         value={playerName}
                         onChange={(e) => setPlayerName(e.target.value)}
                         placeholder="Enter your name"
-                        className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent"
+                        className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-white placeholder-zinc-200 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent"
                         maxLength={50}
                       />
                     </div>
 
                     {mode === 'create' ? (
                       <div>
-                        <label className="block text-sm font-medium text-zinc-300 mb-2">
+                        <label className="block text-sm font-medium text-white mb-2">
                           Room Name
                         </label>
                         <input
@@ -184,13 +184,13 @@ export default function Landing() {
                           value={roomName}
                           onChange={(e) => setRoomName(e.target.value)}
                           placeholder="e.g., Econ 101 - Session 3"
-                          className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent"
+                          className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-white placeholder-zinc-200 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent"
                           maxLength={100}
                         />
                       </div>
                     ) : (
                       <div>
-                        <label className="block text-sm font-medium text-zinc-300 mb-2">
+                        <label className="block text-sm font-medium text-white mb-2">
                           Room Code
                         </label>
                         <input
@@ -198,7 +198,7 @@ export default function Landing() {
                           value={roomCode}
                           onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
                           placeholder="Enter 6-character code"
-                          className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent font-mono text-center text-xl tracking-widest"
+                          className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-white placeholder-zinc-200 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent font-mono text-center text-xl tracking-widest"
                           maxLength={6}
                         />
                       </div>
