@@ -14,6 +14,12 @@ import { shuffleArray } from '../lib/utils'
 export function useGameActions() {
   const { room, gameState, players, decisions, player } = useGame()
 
+  const throwIfError = (error, context) => {
+    if (error) {
+      throw new Error(`${context}: ${error.message || 'Unknown Supabase error'}`)
+    }
+  }
+
   const assignRoles = useCallback(async () => {
     if (!room || players.length < 2) return
 
@@ -38,18 +44,20 @@ export function useGameActions() {
 
     // Ensure there is exactly one government role before assigning other roles.
     if (governmentPlayerId) {
-      await supabase
+      const { error: governmentError } = await supabase
         .from('players')
         .update({ role: 'government' })
         .eq('id', governmentPlayerId)
+      throwIfError(governmentError, 'Failed to mark government player')
     }
 
     // Update each player
     for (let i = 0; i < shuffled.length; i++) {
-      await supabase
+      const { error: roleError } = await supabase
         .from('players')
         .update({ role: shuffledRoles[i] })
         .eq('id', shuffled[i].id)
+      throwIfError(roleError, 'Failed to assign role')
     }
   }, [room, players])
 
@@ -58,7 +66,7 @@ export function useGameActions() {
 
     await assignRoles()
 
-    await supabase
+    const { error: startError } = await supabase
       .from('rooms')
       .update({
         status: 'in_progress',
@@ -67,6 +75,7 @@ export function useGameActions() {
         round_started_at: new Date().toISOString()
       })
       .eq('id', room.id)
+    throwIfError(startError, 'Failed to start game')
   }, [room, assignRoles])
 
   const selectPolicy = useCallback(async (policyId) => {
@@ -74,7 +83,7 @@ export function useGameActions() {
 
     const event = selectRandomEvent()
 
-    await supabase
+    const { error: stateError } = await supabase
       .from('game_state')
       .update({
         current_policy: policyId,
@@ -82,14 +91,16 @@ export function useGameActions() {
         event_modifier: event.effects
       })
       .eq('room_id', room.id)
+    throwIfError(stateError, 'Failed to save policy/event')
 
-    await supabase
+    const { error: phaseError } = await supabase
       .from('rooms')
       .update({
         phase: PHASES.PLAYER_ACTIONS,
         round_started_at: new Date().toISOString()
       })
       .eq('id', room.id)
+    throwIfError(phaseError, 'Failed to switch to action phase')
   }, [room, gameState])
 
   const submitAction = useCallback(async (actionId) => {
@@ -108,6 +119,7 @@ export function useGameActions() {
 
     if (error) {
       console.error('Error submitting action:', error)
+      throw error
     }
   }, [room, player])
 
@@ -115,11 +127,12 @@ export function useGameActions() {
     if (!room || !gameState) return
 
     // Get all decisions for current round with player roles
-    const { data: roundDecisions } = await supabase
+    const { data: roundDecisions, error: decisionsError } = await supabase
       .from('decisions')
       .select('*, players!inner(role)')
       .eq('room_id', room.id)
       .eq('round', room.current_round)
+    throwIfError(decisionsError, 'Failed to fetch round decisions')
 
     const decisionsWithRoles = roundDecisions?.map(d => ({
       ...d,
@@ -136,40 +149,35 @@ export function useGameActions() {
 
     // Update player scores
     for (const [playerId, scoreChange] of Object.entries(results.playerScores)) {
-      await supabase
-        .from('players')
-        .update({ 
-          score: supabase.rpc ? undefined : 0 // We'll use raw SQL
-        })
-        .eq('id', playerId)
-      
-      // Use raw update with increment
-      const { data: playerData } = await supabase
+      const { data: playerData, error: playerFetchError } = await supabase
         .from('players')
         .select('score')
         .eq('id', playerId)
         .single()
+      throwIfError(playerFetchError, 'Failed to fetch player score')
       
       if (playerData) {
-        await supabase
+        const { error: scoreUpdateError } = await supabase
           .from('players')
           .update({ score: (playerData.score || 0) + scoreChange })
           .eq('id', playerId)
+        throwIfError(scoreUpdateError, 'Failed to update player score')
       }
     }
 
     // Update decision score changes
     for (const decision of decisionsWithRoles) {
-      await supabase
+      const { error: decisionUpdateError } = await supabase
         .from('decisions')
         .update({ score_change: results.playerScores[decision.player_id] || 0 })
         .eq('id', decision.id)
+      throwIfError(decisionUpdateError, 'Failed to update decision score change')
     }
 
     // Apply state changes
     const newState = applyStateChanges(gameState, results.stateChanges)
 
-    await supabase
+    const { error: gameStateUpdateError } = await supabase
       .from('game_state')
       .update({
         financial_stability: newState.financial_stability,
@@ -178,14 +186,16 @@ export function useGameActions() {
         public_trust: newState.public_trust
       })
       .eq('room_id', room.id)
+    throwIfError(gameStateUpdateError, 'Failed to update game state')
 
     // Save to history
-    const { data: allPlayers } = await supabase
+    const { data: allPlayers, error: allPlayersError } = await supabase
       .from('players')
       .select('id, name, role, score')
       .eq('room_id', room.id)
+    throwIfError(allPlayersError, 'Failed to fetch players for history')
 
-    await supabase
+    const { error: historyError } = await supabase
       .from('history')
       .insert({
         room_id: room.id,
@@ -197,12 +207,14 @@ export function useGameActions() {
         decisions_summary: results.analysis,
         scores_snapshot: allPlayers?.reduce((acc, p) => ({ ...acc, [p.id]: p.score }), {}) || {}
       })
+    throwIfError(historyError, 'Failed to write history entry')
 
     // Update room phase
-    await supabase
+    const { error: roomPhaseError } = await supabase
       .from('rooms')
       .update({ phase: PHASES.RESULTS })
       .eq('id', room.id)
+    throwIfError(roomPhaseError, 'Failed to switch to results phase')
 
     // Check for game end
     const gameEnd = checkGameEnd(newState, room.current_round, room.max_rounds)
@@ -214,25 +226,27 @@ export function useGameActions() {
     if (!room) return
 
     // Check if game should end
-    const { data: latestState } = await supabase
+    const { data: latestState, error: latestStateError } = await supabase
       .from('game_state')
       .select('*')
       .eq('room_id', room.id)
       .single()
+    throwIfError(latestStateError, 'Failed to fetch latest state')
 
     const gameEnd = checkGameEnd(latestState, room.current_round, room.max_rounds)
 
     if (gameEnd.ended) {
-      await supabase
+      const { error: completeError } = await supabase
         .from('rooms')
         .update({ status: 'completed' })
         .eq('id', room.id)
+      throwIfError(completeError, 'Failed to complete game')
       return { ended: true, reason: gameEnd.reason }
     }
 
     // Clear decisions for new round
     // Start new round
-    await supabase
+    const { error: roundAdvanceError } = await supabase
       .from('rooms')
       .update({
         current_round: room.current_round + 1,
@@ -240,9 +254,10 @@ export function useGameActions() {
         round_started_at: new Date().toISOString()
       })
       .eq('id', room.id)
+    throwIfError(roundAdvanceError, 'Failed to advance to next round')
 
     // Clear current policy/event
-    await supabase
+    const { error: resetStateError } = await supabase
       .from('game_state')
       .update({
         current_policy: null,
@@ -250,6 +265,7 @@ export function useGameActions() {
         event_modifier: {}
       })
       .eq('room_id', room.id)
+    throwIfError(resetStateError, 'Failed to reset round state')
 
     return { ended: false }
   }, [room])
@@ -257,10 +273,11 @@ export function useGameActions() {
   const endGame = useCallback(async () => {
     if (!room) return
 
-    await supabase
+    const { error } = await supabase
       .from('rooms')
       .update({ status: 'completed' })
       .eq('id', room.id)
+    throwIfError(error, 'Failed to end game')
   }, [room])
 
   return {
