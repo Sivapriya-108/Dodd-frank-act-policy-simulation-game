@@ -17,9 +17,11 @@ export function useGameActions() {
   const assignRoles = useCallback(async () => {
     if (!room || players.length < 2) return
 
-    const unassigned = players.filter(p => !p.role)
-    const shuffled = shuffleArray(unassigned)
-    const roleCounts = getBalancedRoleCounts(players.length)
+    const governmentPlayerId = room.created_by || players.find(p => p.role === 'government')?.id
+    const assignablePlayers = players.filter(p => p.id !== governmentPlayerId)
+    const shuffled = shuffleArray(assignablePlayers)
+    const totalPlayers = governmentPlayerId ? assignablePlayers.length + 1 : players.length
+    const roleCounts = getBalancedRoleCounts(totalPlayers)
 
     const roles = [
       ...Array(roleCounts.bank).fill('bank'),

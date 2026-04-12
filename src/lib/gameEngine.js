@@ -14,7 +14,11 @@ export function calculateRoundResults(gameState, policy, decisions, event) {
     analysis: {
       complianceRate: 0,
       riskLevel: 0,
-      decisions: {}
+      decisions: {},
+      policyEffect: {},
+      eventEffect: {},
+      actionEffects: {},
+      summary: ''
     }
   }
 
@@ -27,6 +31,7 @@ export function calculateRoundResults(gameState, policy, decisions, event) {
 
   // Apply event effects
   if (event && event.effects) {
+    results.analysis.eventEffect = { ...event.effects }
     Object.entries(event.effects).forEach(([key, value]) => {
       if (key in results.stateChanges) {
         results.stateChanges[key] += value
@@ -36,6 +41,7 @@ export function calculateRoundResults(gameState, policy, decisions, event) {
 
   // Apply policy effects
   const policyEffects = getPolicyEffects(policy)
+  results.analysis.policyEffect = { ...policyEffects }
   Object.entries(policyEffects).forEach(([key, value]) => {
     if (key in results.stateChanges) {
       results.stateChanges[key] += value
@@ -66,6 +72,7 @@ export function calculateRoundResults(gameState, policy, decisions, event) {
 
     // Aggregate effects on game state
     const stateEffects = calculateStateEffects(action, role, policy)
+    results.analysis.actionEffects[action] = (results.analysis.actionEffects[action] || 0) + 1
     Object.entries(stateEffects).forEach(([key, value]) => {
       if (key in results.stateChanges) {
         results.stateChanges[key] += value
@@ -86,7 +93,47 @@ export function calculateRoundResults(gameState, policy, decisions, event) {
     results.stateChanges[key] = Math.round(results.stateChanges[key])
   })
 
+  results.analysis.summary = buildRoundSummary(results, policy, event, gameState, decisions)
+
   return results
+}
+
+function buildRoundSummary(results, policy, event, gameState, decisions) {
+  const policyLabel = POLICIES.find(item => item.id === policy)?.name || 'the selected policy'
+  const eventLabel = event?.id && event.id !== 'none' ? event.name : 'No random event'
+  const decisionCount = decisions.length
+  const projectedState = applyStateChanges(gameState, results.stateChanges)
+
+  const topActions = Object.entries(results.analysis.actionEffects)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 2)
+    .map(([actionId, count]) => {
+      const actionName = ACTIONS.bank.find(a => a.id === actionId)?.name
+        || ACTIONS.investor.find(a => a.id === actionId)?.name
+        || ACTIONS.citizen.find(a => a.id === actionId)?.name
+        || actionId
+      return `${count} player${count === 1 ? '' : 's'} chose ${actionName}`
+    })
+
+  const strongestShift = Object.entries(results.stateChanges)
+    .sort((a, b) => Math.abs(b[1]) - Math.abs(a[1]))[0]
+
+  return [
+    `Round resolved after ${decisionCount} decision${decisionCount === 1 ? '' : 's'} with ${policyLabel} and ${eventLabel}.`,
+    topActions.length ? `Most common choices: ${topActions.join('; ')}.` : null,
+    strongestShift && strongestShift[1] !== 0
+      ? `${formatMetricLabel(strongestShift[0])} shifted by ${formatSignedValue(strongestShift[1])}.`
+      : 'System metrics held steady this round.',
+    `Projected system health: stability ${projectedState.financial_stability}, growth ${projectedState.economic_growth}, risk ${projectedState.market_risk}, trust ${projectedState.public_trust}.`
+  ].filter(Boolean).join(' ')
+}
+
+function formatMetricLabel(metric) {
+  return metric.replace(/_/g, ' ')
+}
+
+function formatSignedValue(value) {
+  return value > 0 ? `+${value}` : `${value}`
 }
 
 function getPolicyEffects(policy) {

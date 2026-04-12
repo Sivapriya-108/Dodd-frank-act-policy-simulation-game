@@ -80,6 +80,7 @@ export default function Results() {
   } : null
 
   const isGovernment = player?.role === 'government'
+  const roundSummary = latestHistory?.decisions_summary?.summary
 
   return (
     <Layout>
@@ -134,6 +135,21 @@ export default function Results() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Round Explanation */}
+          {roundSummary && (
+            <Card className="lg:col-span-2">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ArrowRight className="w-5 h-5" />
+                  What Happened This Round
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-zinc-100 leading-7">{roundSummary}</p>
+              </CardContent>
+            </Card>
+          )}
 
           {/* State Changes */}
           <Card>
