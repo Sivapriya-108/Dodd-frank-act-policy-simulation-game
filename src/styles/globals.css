@@ -4,23 +4,25 @@
 @tailwind utilities;
 
 :root {
-  --bg-ink: #f6f1e7;
-  --bg-panel: #efe7d8;
-  --line-soft: #d7ccb7;
-  --line-strong: #c2b59a;
-  --text-main: #2f2a22;
-  --text-muted: #5f5749;
-  --accent-gold: #c99b48;
-  --accent-cyan: #3ea5b5;
+  --bg-ink: #fff8e8;
+  --bg-panel: #f5ead7;
+  --line-soft: #d7b77c;
+  --line-strong: #bf9454;
+  --text-main: #5a3d2b;
+  --text-muted: #8f6a42;
+  --accent-gold: #e6c15c;
+  --accent-amber: #f4a127;
+  --accent-burnt: #e5771e;
+  --accent-olive: #758c32;
 }
 
 @layer base {
   body {
     @apply antialiased;
     background:
-      radial-gradient(circle at 8% -12%, rgba(201, 155, 72, 0.2), transparent 40%),
-      radial-gradient(circle at 92% 3%, rgba(62, 165, 181, 0.12), transparent 36%),
-      linear-gradient(145deg, #f7f2e9 0%, #f2eadc 45%, #efe6d6 100%);
+      radial-gradient(circle at 8% -12%, rgba(230, 193, 92, 0.3), transparent 38%),
+      radial-gradient(circle at 92% 6%, rgba(117, 140, 50, 0.16), transparent 34%),
+      linear-gradient(145deg, #fff8e8 0%, #f8edd9 45%, #f5e8d0 100%);
     color: var(--text-main);
   }
   
@@ -32,16 +34,16 @@
 @layer components {
   .app-shell {
     background:
-      linear-gradient(to bottom, rgba(246, 241, 231, 0.96), rgba(239, 230, 214, 0.98)),
+      linear-gradient(to bottom, rgba(255, 248, 232, 0.98), rgba(247, 236, 215, 0.99)),
       repeating-linear-gradient(
         90deg,
-        rgba(140, 106, 74, 0.08) 0,
-        rgba(140, 106, 74, 0.08) 1px,
+        rgba(90, 61, 43, 0.09) 0,
+        rgba(90, 61, 43, 0.09) 1px,
         transparent 1px,
         transparent 26px
       ),
-      radial-gradient(circle at 12% -8%, rgba(201, 155, 72, 0.2), transparent 32%),
-      radial-gradient(circle at 92% 6%, rgba(160, 122, 88, 0.16), transparent 30%);
+      radial-gradient(circle at 12% -8%, rgba(244, 161, 39, 0.22), transparent 30%),
+      radial-gradient(circle at 92% 6%, rgba(117, 140, 50, 0.16), transparent 28%);
   }
 
   .card-glow {
