@@ -135,13 +135,13 @@ export default function GovernmentPanel() {
     <Layout>
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Control Bar */}
-        <Card className="mb-6 bg-government-900/20 border-government-800">
+        <Card className="mb-6 bg-gradient-to-br from-zinc-900 to-slate-900 border-government-700">
           <CardContent className="p-4">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
-                  <Shield className="w-6 h-6 text-government-400" />
-                  <span className="font-semibold text-lg text-white">Government Control Panel</span>
+                  <Shield className="w-6 h-6 text-government-500" />
+                  <span className="font-semibold text-lg text-zinc-100">Government Control Panel</span>
                 </div>
                 <Badge variant="info">Round {room?.current_round || 0} / {room?.max_rounds || 10}</Badge>
               </div>
@@ -187,12 +187,12 @@ export default function GovernmentPanel() {
                         key={policy.id}
                         onClick={() => setSelectedPolicy(policy.id)}
                         className={cn(
-                          'action-card text-left border-slate-700 bg-slate-800/50',
+                          'action-card text-left',
                           selectedPolicy === policy.id && 'action-card-selected border-government-500 ring-government-500'
                         )}
                       >
-                        <h4 className="font-semibold text-slate-200 mb-1">{policy.name}</h4>
-                        <p className="text-sm text-slate-400">{policy.description}</p>
+                        <h4 className="font-semibold text-zinc-100 mb-1">{policy.name}</h4>
+                        <p className="text-sm text-zinc-300">{policy.description}</p>
                       </button>
                     ))}
                   </div>
@@ -225,9 +225,9 @@ export default function GovernmentPanel() {
                 <CardContent>
                   {/* Current Policy & Event */}
                   {gameState?.current_policy && (
-                    <div className="mb-4 p-4 bg-government-900/30 rounded-lg">
-                      <span className="text-sm text-slate-400">Active Policy:</span>
-                      <span className="ml-2 font-semibold text-white">
+                    <div className="mb-4 p-4 bg-zinc-900 rounded-lg border border-government-700">
+                      <span className="text-sm text-zinc-300">Active Policy:</span>
+                      <span className="ml-2 font-semibold text-zinc-100">
                         {POLICIES.find(p => p.id === gameState.current_policy)?.name}
                       </span>
                     </div>
@@ -243,7 +243,7 @@ export default function GovernmentPanel() {
                       <div key={role}>
                         <div className="flex items-center justify-between mb-2">
                           <Badge role={role}>{role}s</Badge>
-                          <span className="text-sm text-slate-400">
+                          <span className="text-sm text-zinc-300">
                             {rolePlayers.filter(p => decisions.find(d => d.player_id === p.id)).length} / {rolePlayers.length}
                           </span>
                         </div>
@@ -254,8 +254,8 @@ export default function GovernmentPanel() {
                               <span 
                                 key={p.id}
                                 className={cn(
-                                  'px-2 py-1 text-sm rounded-full',
-                                  hasSubmitted ? 'bg-green-900/30 text-green-400' : 'bg-slate-800 text-slate-400'
+                                    'px-2 py-1 text-sm rounded-full',
+                                    hasSubmitted ? 'bg-bank-900 text-bank-100' : 'bg-zinc-800 text-zinc-300'
                                 )}
                               >
                                 {p.name} {hasSubmitted && <CheckCircle className="inline w-3 h-3 ml-1" />}
@@ -290,7 +290,7 @@ export default function GovernmentPanel() {
                 </CardHeader>
                 <CardContent>
                   <div className="mb-6">
-                    <h4 className="text-sm text-slate-400 mb-4">System Metrics Change</h4>
+                    <h4 className="text-sm text-zinc-300 mb-4">System Metrics Change</h4>
                     <SystemMetrics gameState={gameState} compact />
                   </div>
 

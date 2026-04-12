@@ -17,7 +17,7 @@ export function TrendChart({ data, title }) {
 
   if (chartData.length === 0) {
     return (
-      <div className="h-48 flex items-center justify-center text-slate-500">
+      <div className="h-48 flex items-center justify-center text-zinc-300">
         No data available
       </div>
     )
@@ -26,24 +26,24 @@ export function TrendChart({ data, title }) {
   return (
     <ResponsiveContainer width="100%" height={200}>
       <BarChart data={chartData} layout="vertical">
-        <CartesianGrid strokeDasharray="3 3" stroke="#334155" horizontal={false} />
-        <XAxis type="number" stroke="#94a3b8" tick={{ fill: '#94a3b8' }} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#4a3325" horizontal={false} />
+        <XAxis type="number" stroke="#d7b77c" tick={{ fill: '#d7b77c' }} />
         <YAxis 
           type="category" 
           dataKey="name" 
-          stroke="#94a3b8" 
-          tick={{ fill: '#94a3b8', fontSize: 12 }}
+          stroke="#d7b77c" 
+          tick={{ fill: '#d7b77c', fontSize: 12 }}
           width={100}
         />
         <Tooltip 
           contentStyle={{ 
-            backgroundColor: '#1e293b', 
-            border: '1px solid #334155',
+            backgroundColor: '#241813', 
+            border: '1px solid #4a3325',
             borderRadius: '0.5rem'
           }}
-          labelStyle={{ color: '#e2e8f0' }}
+          labelStyle={{ color: '#f5ead7' }}
         />
-        <Bar dataKey="value" fill="#3b82f6" radius={[0, 4, 4, 0]} />
+        <Bar dataKey="value" fill="#f4a127" radius={[0, 4, 4, 0]} />
       </BarChart>
     </ResponsiveContainer>
   )

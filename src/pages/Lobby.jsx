@@ -84,19 +84,19 @@ export default function Lobby() {
   }
 
   return (
-    <Layout className="bg-[#f6f1e7] bg-none">
+    <Layout className="bg-zinc-950">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-zinc-900 mb-2">{room?.name}</h1>
-          <p className="text-zinc-700">Waiting for players to join...</p>
+          <h1 className="text-3xl font-bold text-zinc-100 mb-2">{room?.name}</h1>
+          <p className="text-zinc-300">Waiting for players to join...</p>
         </div>
 
         {/* Room Code Card */}
-        <Card className="mb-8 bg-gradient-to-br from-blue-900/30 to-purple-900/30 border-blue-800/50">
+        <Card className="mb-8 bg-gradient-to-br from-zinc-900 to-slate-900 border-zinc-700">
           <CardContent className="p-8 text-center">
-            <p className="text-sm text-slate-400 mb-2">Share this code with players:</p>
+            <p className="text-sm text-zinc-200 mb-2">Share this code with players:</p>
             <div className="flex items-center justify-center gap-4">
-              <span className="text-5xl font-mono font-bold text-white tracking-[0.3em]">
+              <span className="text-5xl font-mono font-bold text-government-100 tracking-[0.3em]">
                 {room?.code}
               </span>
               <Button 
@@ -126,24 +126,24 @@ export default function Lobby() {
               <CardContent className="space-y-3">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center gap-2">
-                    <Crown className="w-4 h-4 text-yellow-500" />
+                    <Crown className="w-4 h-4 text-government-500" />
                     <span className="text-zinc-100">Government</span>
                   </div>
-                  <Badge role="government" className="text-white">{roleBreakdown.government}</Badge>
+                  <Badge role="government">{roleBreakdown.government}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-zinc-100">Banks</span>
-                  <Badge role="bank" className="text-white">~{roleBreakdown.bank}</Badge>
+                  <Badge role="bank">~{roleBreakdown.bank}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-zinc-100">Investors</span>
-                  <Badge role="investor" className="text-white">~{roleBreakdown.investor}</Badge>
+                  <Badge role="investor">~{roleBreakdown.investor}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-zinc-100">Citizens</span>
-                  <Badge role="citizen" className="text-white">~{roleBreakdown.citizen}</Badge>
+                  <Badge role="citizen">~{roleBreakdown.citizen}</Badge>
                 </div>
-                <p className="text-xs text-slate-500 mt-4">
+                <p className="text-xs text-zinc-200 mt-4">
                   Roles will be randomly assigned when the game starts
                 </p>
               </CardContent>
@@ -151,21 +151,21 @@ export default function Lobby() {
 
             {/* Start Game */}
             {isHost && (
-              <Card className="bg-government-900/20 border-government-800">
+              <Card className="bg-gradient-to-br from-zinc-900 to-slate-900 border-government-700">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <Crown className="w-5 h-5 text-yellow-500" />
-                    <span className="font-semibold text-slate-200">Host Controls</span>
+                    <Crown className="w-5 h-5 text-government-500" />
+                    <span className="font-semibold text-zinc-100">Host Controls</span>
                   </div>
                   
                   <div className="mb-4">
                     <div className="flex justify-between text-sm mb-1">
-                      <span className="text-slate-400">Players</span>
-                      <span className="text-slate-300">{players.length} / {minPlayers} minimum</span>
+                      <span className="text-zinc-200">Players</span>
+                      <span className="text-zinc-100">{players.length} / {minPlayers} minimum</span>
                     </div>
-                    <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div className="h-2 bg-zinc-800 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all"
+                        className="h-full bg-gradient-to-r from-government-500 to-investor-600 transition-all"
                         style={{ width: `${Math.min(100, (players.length / minPlayers) * 100)}%` }}
                       />
                     </div>
@@ -184,7 +184,7 @@ export default function Lobby() {
                   </Button>
 
                   {!canStart && (
-                    <p className="text-xs text-slate-500 text-center mt-2">
+                    <p className="text-xs text-zinc-200 text-center mt-2">
                       Need at least {minPlayers} players to start
                     </p>
                   )}
@@ -195,9 +195,9 @@ export default function Lobby() {
             {!isHost && (
               <Card>
                 <CardContent className="p-6 text-center">
-                  <RefreshCw className="w-8 h-8 text-slate-500 mx-auto mb-3 animate-spin" style={{ animationDuration: '3s' }} />
-                  <p className="text-slate-300">Waiting for host to start the game...</p>
-                  <p className="text-sm text-slate-500 mt-1">You'll be assigned a role automatically</p>
+                  <RefreshCw className="w-8 h-8 text-zinc-300 mx-auto mb-3 animate-spin" style={{ animationDuration: '3s' }} />
+                  <p className="text-zinc-100">Waiting for host to start the game...</p>
+                  <p className="text-sm text-zinc-200 mt-1">You'll be assigned a role automatically</p>
                 </CardContent>
               </Card>
             )}

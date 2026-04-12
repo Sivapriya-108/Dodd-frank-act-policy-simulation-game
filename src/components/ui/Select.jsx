@@ -7,8 +7,8 @@ export function Select({ options, value, onChange, placeholder, className, ...pr
       value={value}
       onChange={(e) => onChange(e.target.value)}
       className={cn(
-        'w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg',
-        'text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent',
+        'w-full px-4 py-2 bg-zinc-900 border border-zinc-700 rounded-lg',
+        'text-zinc-100 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent',
         'appearance-none cursor-pointer',
         className
       )}

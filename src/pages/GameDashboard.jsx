@@ -82,14 +82,14 @@ export default function GameDashboard() {
       <div className="max-w-7xl mx-auto px-4 py-6">
         {/* Header Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <Card className="bg-slate-900/50">
+          <Card className="bg-gradient-to-br from-zinc-900 to-slate-900">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-blue-900/50">
-                  <Target className="w-5 h-5 text-blue-400" />
+                <div className="p-2 rounded-lg bg-government-900">
+                  <Target className="w-5 h-5 text-government-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-400">Round</p>
+                  <p className="text-sm text-zinc-200">Round</p>
                   <p className="text-2xl font-bold text-zinc-100">
                     {room?.current_round || 0} / {room?.max_rounds || 10}
                   </p>
@@ -98,35 +98,35 @@ export default function GameDashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-900/50">
+          <Card className="bg-gradient-to-br from-zinc-900 to-slate-900">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-purple-900/50">
-                  <TrendingUp className="w-5 h-5 text-purple-400" />
+                <div className="p-2 rounded-lg bg-investor-900">
+                  <TrendingUp className="w-5 h-5 text-investor-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-400">Your Score</p>
+                  <p className="text-sm text-zinc-200">Your Score</p>
                   <p className="text-2xl font-bold text-zinc-100">{player?.score || 0}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-900/50">
+          <Card className="bg-gradient-to-br from-zinc-900 to-slate-900">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-green-900/50">
-                  <Users className="w-5 h-5 text-green-400" />
+                <div className="p-2 rounded-lg bg-bank-900">
+                  <Users className="w-5 h-5 text-bank-500" />
                 </div>
                 <div>
-                  <p className="text-sm text-slate-400">Submitted</p>
+                  <p className="text-sm text-zinc-200">Submitted</p>
                   <p className="text-2xl font-bold text-zinc-100">{submittedCount} / {totalPlayers}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-900/50">
+          <Card className="bg-gradient-to-br from-zinc-900 to-slate-900">
             <CardContent className="p-4 flex items-center justify-center">
               {room?.round_started_at && (
                 <RoundTimer 
@@ -143,13 +143,13 @@ export default function GameDashboard() {
           <div className="lg:col-span-2 space-y-6">
             {/* Current Policy & Event */}
             {isWaitingForPolicy ? (
-              <Card className="bg-gradient-to-br from-slate-900 to-slate-800">
+              <Card className="bg-gradient-to-br from-zinc-900 to-slate-900">
                 <CardContent className="p-8 text-center">
-                  <Clock className="w-12 h-12 text-slate-500 mx-auto mb-4 animate-pulse" />
-                  <h2 className="text-xl font-semibold text-slate-200 mb-2">
+                  <Clock className="w-12 h-12 text-zinc-200 mx-auto mb-4 animate-pulse" />
+                  <h2 className="text-xl font-semibold text-zinc-100 mb-2">
                     Waiting for Government Policy
                   </h2>
-                  <p className="text-slate-400">
+                  <p className="text-zinc-300">
                     The government is selecting this round's policy...
                   </p>
                 </CardContent>
@@ -158,16 +158,16 @@ export default function GameDashboard() {
               <>
                 {/* Current Policy */}
                 {currentPolicy && (
-                  <Card className="bg-government-900/20 border-government-800">
+                  <Card className="bg-gradient-to-br from-zinc-900 to-slate-900 border-government-700">
                     <CardContent className="p-6">
                       <div className="flex items-start gap-4">
-                        <div className="p-3 rounded-xl bg-government-900/50">
-                          <Target className="w-6 h-6 text-government-400" />
+                        <div className="p-3 rounded-xl bg-government-900">
+                          <Target className="w-6 h-6 text-government-500" />
                         </div>
                         <div>
                           <Badge role="government" className="mb-2">Current Policy</Badge>
                           <h3 className="text-xl font-semibold text-zinc-100">{currentPolicy.name}</h3>
-                          <p className="text-slate-400">{currentPolicy.description}</p>
+                          <p className="text-zinc-200">{currentPolicy.description}</p>
                         </div>
                       </div>
                     </CardContent>

@@ -16,30 +16,30 @@ export const ROLE_DISTRIBUTION = {
 export const ROLE_COLORS = {
   government: {
     primary: 'government',
-    bg: 'bg-government-900/20',
-    border: 'border-government-700',
-    text: 'text-government-400',
+    bg: 'bg-government-900',
+    border: 'border-government-500',
+    text: 'text-government-100',
     gradient: 'from-government-500 to-government-700'
   },
   bank: {
     primary: 'bank',
-    bg: 'bg-bank-900/20',
-    border: 'border-bank-700',
-    text: 'text-bank-400',
+    bg: 'bg-bank-900',
+    border: 'border-bank-500',
+    text: 'text-bank-100',
     gradient: 'from-bank-500 to-bank-700'
   },
   investor: {
     primary: 'investor',
-    bg: 'bg-investor-900/20',
-    border: 'border-investor-700',
-    text: 'text-investor-400',
+    bg: 'bg-investor-900',
+    border: 'border-investor-500',
+    text: 'text-investor-100',
     gradient: 'from-investor-500 to-investor-700'
   },
   citizen: {
     primary: 'citizen',
-    bg: 'bg-citizen-900/20',
-    border: 'border-citizen-700',
-    text: 'text-citizen-400',
+    bg: 'bg-citizen-900',
+    border: 'border-citizen-500',
+    text: 'text-citizen-100',
     gradient: 'from-citizen-500 to-citizen-700'
   }
 }

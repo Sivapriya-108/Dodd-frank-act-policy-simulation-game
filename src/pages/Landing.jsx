@@ -95,18 +95,18 @@ export default function Landing() {
         </div>
       </section>
 
-      <section className="flex-1 bg-[#f6f1e7] px-4 py-12">
+      <section className="flex-1 bg-zinc-950 px-4 py-12">
         <div className="max-w-6xl mx-auto flex flex-col items-center">
           <div className="text-center mb-10 animate-fade-in">
-            <p className="text-lg text-stone-700 max-w-2xl mx-auto">
+            <p className="text-lg text-zinc-300 max-w-2xl mx-auto">
               Play through the 2008 crisis - make decisions, manage risk, and shape the system’s future.
             </p>
           </div>
 
           <div className="w-full max-w-6xl mb-12">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-xl md:text-2xl font-semibold text-zinc-900 font-serif">Player Cards</h2>
-              <p className="text-sm text-stone-700">Each role sees different incentives and tradeoffs</p>
+              <h2 className="text-xl md:text-2xl font-semibold text-zinc-100 font-serif">Player Cards</h2>
+              <p className="text-sm text-zinc-400">Each role sees different incentives and tradeoffs</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
               {roleCards.map((role) => (
@@ -150,7 +150,7 @@ export default function Landing() {
                 <CardContent className="p-6">
                   <button
                     onClick={() => { setMode(null); setLocalError('') }}
-                    className="text-sm text-zinc-100 hover:text-white mb-4"
+                    className="text-sm text-zinc-300 hover:text-zinc-100 mb-4"
                   >
                     ← Back
                   </button>
@@ -161,7 +161,7 @@ export default function Landing() {
 
                   <form onSubmit={mode === 'create' ? handleCreate : handleJoin} className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-white mb-2">
+                      <label className="block text-sm font-medium text-zinc-200 mb-2">
                         Your Name
                       </label>
                       <input
@@ -169,14 +169,14 @@ export default function Landing() {
                         value={playerName}
                         onChange={(e) => setPlayerName(e.target.value)}
                         placeholder="Enter your name"
-                        className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-white placeholder-zinc-200 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent"
+                        className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent"
                         maxLength={50}
                       />
                     </div>
 
                     {mode === 'create' ? (
                       <div>
-                        <label className="block text-sm font-medium text-white mb-2">
+                        <label className="block text-sm font-medium text-zinc-200 mb-2">
                           Room Name
                         </label>
                         <input
@@ -184,13 +184,13 @@ export default function Landing() {
                           value={roomName}
                           onChange={(e) => setRoomName(e.target.value)}
                           placeholder="e.g., Econ 101 - Session 3"
-                          className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-white placeholder-zinc-200 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent"
+                          className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent"
                           maxLength={100}
                         />
                       </div>
                     ) : (
                       <div>
-                        <label className="block text-sm font-medium text-white mb-2">
+                        <label className="block text-sm font-medium text-zinc-200 mb-2">
                           Room Code
                         </label>
                         <input
@@ -198,14 +198,14 @@ export default function Landing() {
                           value={roomCode}
                           onChange={(e) => setRoomCode(e.target.value.toUpperCase())}
                           placeholder="Enter 6-character code"
-                          className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-white placeholder-zinc-200 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent font-mono text-center text-xl tracking-widest"
+                          className="w-full px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-government-500 focus:border-transparent font-mono text-center text-xl tracking-widest"
                           maxLength={6}
                         />
                       </div>
                     )}
 
                     {(localError || error) && (
-                      <div className="p-3 bg-red-900/30 border border-red-800 rounded-lg text-red-400 text-sm">
+                      <div className="p-3 bg-investor-900 border border-investor-600 rounded-lg text-zinc-100 text-sm">
                         {localError || error}
                       </div>
                     )}
@@ -220,7 +220,7 @@ export default function Landing() {
           </div>
 
           {/* Footer */}
-          <footer className="py-6 text-center text-stone-700 text-sm">
+          <footer className="py-6 text-center text-zinc-400 text-sm">
             <p>Based on the Dodd-Frank Wall Street Reform and Consumer Protection Act (2010)</p>
           </footer>
         </div>

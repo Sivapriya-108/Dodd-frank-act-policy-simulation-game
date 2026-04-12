@@ -13,7 +13,7 @@ import {
 export function StabilityChart({ data }) {
   if (!data || data.rounds.length === 0) {
     return (
-      <div className="h-64 flex items-center justify-center text-slate-500">
+      <div className="h-64 flex items-center justify-center text-zinc-300">
         No data available yet
       </div>
     )
@@ -30,56 +30,56 @@ export function StabilityChart({ data }) {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={chartData}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+        <CartesianGrid strokeDasharray="3 3" stroke="#4a3325" />
         <XAxis 
           dataKey="round" 
-          stroke="#94a3b8"
-          tick={{ fill: '#94a3b8' }}
+          stroke="#d7b77c"
+          tick={{ fill: '#d7b77c' }}
         />
         <YAxis 
           domain={[0, 100]} 
-          stroke="#94a3b8"
-          tick={{ fill: '#94a3b8' }}
+          stroke="#d7b77c"
+          tick={{ fill: '#d7b77c' }}
         />
         <Tooltip 
           contentStyle={{ 
-            backgroundColor: '#1e293b', 
-            border: '1px solid #334155',
+            backgroundColor: '#241813', 
+            border: '1px solid #4a3325',
             borderRadius: '0.5rem'
           }}
-          labelStyle={{ color: '#e2e8f0' }}
+          labelStyle={{ color: '#f5ead7' }}
         />
-        <Legend />
+        <Legend wrapperStyle={{ color: '#f5ead7' }} />
         <Line 
           type="monotone" 
           dataKey="stability" 
-          stroke="#3b82f6" 
+          stroke="#e6c15c" 
           strokeWidth={2}
-          dot={{ fill: '#3b82f6' }}
+          dot={{ fill: '#e6c15c' }}
           name="Stability"
         />
         <Line 
           type="monotone" 
           dataKey="growth" 
-          stroke="#22c55e" 
+          stroke="#758c32" 
           strokeWidth={2}
-          dot={{ fill: '#22c55e' }}
+          dot={{ fill: '#758c32' }}
           name="Growth"
         />
         <Line 
           type="monotone" 
           dataKey="trust" 
-          stroke="#a855f7" 
+          stroke="#d86a72" 
           strokeWidth={2}
-          dot={{ fill: '#a855f7' }}
+          dot={{ fill: '#d86a72' }}
           name="Trust"
         />
         <Line 
           type="monotone" 
           dataKey="risk" 
-          stroke="#ef4444" 
+          stroke="#e5771e" 
           strokeWidth={2}
-          dot={{ fill: '#ef4444' }}
+          dot={{ fill: '#e5771e' }}
           name="Risk"
         />
       </LineChart>

@@ -2,15 +2,15 @@
 import { cn } from '../../lib/utils'
 
 const variants = {
-  primary: 'bg-gradient-to-r from-government-700 to-government-600 hover:from-government-600 hover:to-government-500 text-slate-50 shadow-lg shadow-government-900/30',
-  secondary: 'bg-zinc-900/80 hover:bg-zinc-800 text-zinc-100 border border-zinc-700',
-  danger: 'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white',
-  success: 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-500 hover:to-green-600 text-white',
-  ghost: 'bg-transparent hover:bg-zinc-900 text-zinc-300',
-  government: 'bg-gradient-to-r from-government-600 to-government-700 hover:from-government-500 hover:to-government-600 text-white',
-  bank: 'bg-gradient-to-r from-bank-600 to-bank-700 hover:from-bank-500 hover:to-bank-600 text-white',
-  investor: 'bg-gradient-to-r from-investor-600 to-investor-700 hover:from-investor-500 hover:to-investor-600 text-white',
-  citizen: 'bg-gradient-to-r from-citizen-600 to-citizen-700 hover:from-citizen-500 hover:to-citizen-600 text-white',
+  primary: 'bg-gradient-to-r from-government-500 via-government-600 to-investor-600 hover:from-government-400 hover:via-government-500 hover:to-investor-500 text-zinc-950 shadow-lg shadow-government-900/30',
+  secondary: 'bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border border-zinc-600',
+  danger: 'bg-gradient-to-r from-investor-600 to-citizen-700 hover:from-investor-500 hover:to-citizen-600 text-zinc-950 shadow-lg shadow-black/20',
+  success: 'bg-gradient-to-r from-bank-500 to-bank-700 hover:from-bank-400 hover:to-bank-600 text-zinc-950 shadow-lg shadow-black/20',
+  ghost: 'bg-transparent hover:bg-zinc-800 text-zinc-200',
+  government: 'bg-gradient-to-r from-government-500 to-government-700 hover:from-government-400 hover:to-government-600 text-zinc-950 shadow-lg shadow-black/20',
+  bank: 'bg-gradient-to-r from-bank-500 to-bank-700 hover:from-bank-400 hover:to-bank-600 text-zinc-950 shadow-lg shadow-black/20',
+  investor: 'bg-gradient-to-r from-investor-500 to-investor-700 hover:from-investor-400 hover:to-investor-600 text-zinc-950 shadow-lg shadow-black/20',
+  citizen: 'bg-gradient-to-r from-citizen-500 to-citizen-700 hover:from-citizen-400 hover:to-citizen-600 text-zinc-950 shadow-lg shadow-black/20',
 }
 
 const sizes = {
@@ -33,8 +33,8 @@ export function Button({
     <button
       className={cn(
         'inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200',
-        'focus:outline-none focus:ring-2 focus:ring-government-500 focus:ring-offset-2 focus:ring-offset-zinc-950',
-        'disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none',
+        'focus:outline-none focus:ring-2 focus:ring-government-400 focus:ring-offset-2 focus:ring-offset-zinc-950',
+        'disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none',
         'active:scale-[0.98]',
         variants[variant],
         sizes[size],

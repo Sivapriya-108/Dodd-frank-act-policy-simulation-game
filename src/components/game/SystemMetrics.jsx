@@ -18,10 +18,10 @@ export function SystemMetrics({ gameState, compact = false }) {
     return (
       <div className="grid grid-cols-2 gap-3">
         {metrics.map(({ key, label, icon: Icon, inverted }) => (
-          <div key={key} className="bg-slate-800/50 rounded-lg p-3">
+          <div key={key} className="bg-zinc-900 rounded-lg p-3 border border-zinc-700">
             <div className="flex items-center gap-2 mb-2">
               <Icon className={cn('w-4 h-4', getMetricColor(gameState[key], inverted))} />
-              <span className="text-xs text-slate-400">{label}</span>
+              <span className="text-xs text-zinc-200">{label}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className={cn('text-xl font-bold', getMetricColor(gameState[key], inverted))}>
@@ -49,7 +49,7 @@ export function SystemMetrics({ gameState, compact = false }) {
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <Icon className={cn('w-4 h-4', getMetricColor(gameState[key], inverted))} />
-                <span className="text-sm text-slate-300">{label}</span>
+                <span className="text-sm text-zinc-100">{label}</span>
               </div>
               <span className={cn('text-lg font-bold', getMetricColor(gameState[key], inverted))}>
                 {gameState[key]}

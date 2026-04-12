@@ -26,16 +26,16 @@ export function PlayerList({ players, currentPlayerId, showScores = false }) {
               key={player.id}
               className={cn(
                 'flex items-center justify-between px-6 py-3 transition-colors',
-                player.id === currentPlayerId && 'bg-slate-800/50'
+                player.id === currentPlayerId && 'bg-zinc-800'
               )}
             >
               <div className="flex items-center gap-3">
                 {showScores && index < 3 && (
                   <span className={cn(
                     'w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold',
-                    index === 0 && 'bg-yellow-500 text-yellow-950',
-                    index === 1 && 'bg-slate-400 text-slate-950',
-                    index === 2 && 'bg-amber-700 text-amber-100'
+                    index === 0 && 'bg-government-500 text-zinc-950',
+                    index === 1 && 'bg-bank-500 text-zinc-950',
+                    index === 2 && 'bg-investor-600 text-zinc-950'
                   )}>
                     {index + 1}
                   </span>
@@ -44,7 +44,7 @@ export function PlayerList({ players, currentPlayerId, showScores = false }) {
                   <div className="flex items-center gap-2">
                     <span className="font-medium text-slate-200">{player.name}</span>
                     {player.id === currentPlayerId && (
-                      <span className="text-xs text-slate-400">(You)</span>
+                      <span className="text-xs text-zinc-200">(You)</span>
                     )}
                     {player.role === 'government' && (
                       <Crown className="w-4 h-4 text-yellow-500" />
@@ -59,7 +59,7 @@ export function PlayerList({ players, currentPlayerId, showScores = false }) {
               </div>
               <div className="flex items-center gap-3">
                 {showScores && (
-                  <span className="font-mono font-medium text-slate-300">
+                  <span className="font-mono font-medium text-zinc-100">
                     {player.score || 0} pts
                   </span>
                 )}
@@ -69,7 +69,7 @@ export function PlayerList({ players, currentPlayerId, showScores = false }) {
                 {player.is_connected ? (
                   <Wifi className="w-4 h-4 text-green-500" />
                 ) : (
-                  <WifiOff className="w-4 h-4 text-slate-500" />
+                  <WifiOff className="w-4 h-4 text-zinc-300" />
                 )}
               </div>
             </div>

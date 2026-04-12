@@ -36,16 +36,16 @@ export function formatNumber(num) {
 
 export function getMetricColor(value, inverted = false) {
   const v = inverted ? 100 - value : value
-  if (v >= 70) return 'text-green-400'
-  if (v >= 40) return 'text-yellow-400'
-  return 'text-red-400'
+  if (v >= 70) return 'text-bank-500'
+  if (v >= 40) return 'text-government-500'
+  return 'text-investor-600'
 }
 
 export function getMetricBarColor(value, inverted = false) {
   const v = inverted ? 100 - value : value
-  if (v >= 70) return 'bg-green-500'
-  if (v >= 40) return 'bg-yellow-500'
-  return 'bg-red-500'
+  if (v >= 70) return 'bg-bank-500'
+  if (v >= 40) return 'bg-government-500'
+  return 'bg-investor-600'
 }
 
 export function calculateTimeRemaining(startedAt, duration) {

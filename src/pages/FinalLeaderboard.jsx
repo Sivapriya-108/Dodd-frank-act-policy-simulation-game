@@ -12,6 +12,13 @@ import { useGame } from '../context/GameContext'
 import { generateAnalyticsData, exportAnalytics } from '../lib/gameEngine'
 import { cn } from '../lib/utils'
 
+const finalStateClasses = {
+  financial_stability: 'bg-government-900',
+  economic_growth: 'bg-bank-900',
+  public_trust: 'bg-citizen-900',
+  market_risk: 'bg-investor-900'
+}
+
 export default function FinalLeaderboard() {
   const { roomCode } = useParams()
   const navigate = useNavigate()
@@ -74,33 +81,33 @@ export default function FinalLeaderboard() {
     outcome = { 
       title: 'Financial Crisis!', 
       description: 'The system collapsed under market pressure.',
-      color: 'text-red-400'
+      color: 'text-investor-500'
     }
   } else if (finalStability > 70 && finalTrust > 50) {
     outcome = { 
       title: 'Stable Economy', 
       description: 'Effective regulation maintained market stability.',
-      color: 'text-green-400'
+      color: 'text-bank-500'
     }
   } else if (finalTrust < 30) {
     outcome = { 
       title: 'Loss of Confidence', 
       description: 'Public trust eroded despite regulatory efforts.',
-      color: 'text-yellow-400'
+      color: 'text-government-500'
     }
   } else {
     outcome = { 
       title: 'Mixed Results', 
       description: 'The economy navigated challenges with varying success.',
-      color: 'text-blue-400'
+      color: 'text-citizen-500'
     }
   }
 
   const podiumIcons = [Trophy, Medal, Award]
   const podiumColors = [
-    'from-yellow-400 to-yellow-600 text-yellow-950',
-    'from-slate-300 to-slate-500 text-slate-950',
-    'from-amber-600 to-amber-800 text-amber-100'
+    'from-government-500 to-government-700 text-zinc-950',
+    'from-bank-500 to-bank-700 text-zinc-950',
+    'from-investor-500 to-investor-700 text-zinc-950'
   ]
 
   return (
@@ -108,18 +115,18 @@ export default function FinalLeaderboard() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-zinc-900 mb-4">Game Complete!</h1>
+          <h1 className="text-4xl font-bold text-zinc-100 mb-4">Game Complete!</h1>
           <div className={cn('text-2xl font-semibold mb-2', outcome.color)}>
             {outcome.title}
           </div>
-          <p className="text-slate-400">{outcome.description}</p>
-          <p className="text-sm text-slate-500 mt-2">
+          <p className="text-zinc-300">{outcome.description}</p>
+          <p className="text-sm text-zinc-400 mt-2">
             {room?.current_round} rounds played in session {room?.code}
           </p>
         </div>
 
         {/* Podium */}
-        <Card className="mb-8 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+        <Card className="mb-8 bg-gradient-to-br from-zinc-900 via-slate-900 to-zinc-900 border-zinc-700">
           <CardContent className="p-8">
             <div className="flex items-end justify-center gap-4 mb-8">
               {/* 2nd Place */}
@@ -131,10 +138,10 @@ export default function FinalLeaderboard() {
                   )}>
                     <Medal className="w-10 h-10" />
                   </div>
-                  <div className="bg-slate-800 rounded-t-xl p-4 h-24 flex flex-col justify-end">
-                    <p className="font-semibold text-white">{topThree[1].name}</p>
+                  <div className="bg-zinc-900 rounded-t-xl p-4 h-24 flex flex-col justify-end border border-zinc-700">
+                    <p className="font-semibold text-zinc-100">{topThree[1].name}</p>
                     <Badge role={topThree[1].role} className="mx-auto mt-1">{topThree[1].role}</Badge>
-                    <p className="text-lg font-bold text-slate-300 mt-1">{topThree[1].score || 0}</p>
+                    <p className="text-lg font-bold text-zinc-100 mt-1">{topThree[1].score || 0}</p>
                   </div>
                 </div>
               )}
@@ -148,10 +155,10 @@ export default function FinalLeaderboard() {
                   )}>
                     <Trophy className="w-12 h-12" />
                   </div>
-                  <div className="bg-slate-800 rounded-t-xl p-4 h-32 flex flex-col justify-end">
-                    <p className="font-bold text-lg text-white">{topThree[0].name}</p>
+                  <div className="bg-zinc-900 rounded-t-xl p-4 h-32 flex flex-col justify-end border border-zinc-700">
+                    <p className="font-bold text-lg text-zinc-100">{topThree[0].name}</p>
                     <Badge role={topThree[0].role} className="mx-auto mt-1">{topThree[0].role}</Badge>
-                    <p className="text-2xl font-bold text-yellow-400 mt-1">{topThree[0].score || 0}</p>
+                    <p className="text-2xl font-bold text-government-500 mt-1">{topThree[0].score || 0}</p>
                   </div>
                 </div>
               )}
@@ -165,10 +172,10 @@ export default function FinalLeaderboard() {
                   )}>
                     <Award className="w-8 h-8" />
                   </div>
-                  <div className="bg-slate-800 rounded-t-xl p-4 h-20 flex flex-col justify-end">
-                    <p className="font-semibold text-white">{topThree[2].name}</p>
+                  <div className="bg-zinc-900 rounded-t-xl p-4 h-20 flex flex-col justify-end border border-zinc-700">
+                    <p className="font-semibold text-zinc-100">{topThree[2].name}</p>
                     <Badge role={topThree[2].role} className="mx-auto mt-1">{topThree[2].role}</Badge>
-                    <p className="text-lg font-bold text-slate-300 mt-1">{topThree[2].score || 0}</p>
+                    <p className="text-lg font-bold text-zinc-100 mt-1">{topThree[2].score || 0}</p>
                   </div>
                 </div>
               )}
@@ -176,16 +183,16 @@ export default function FinalLeaderboard() {
 
             {/* Rest of players */}
             {rest.length > 0 && (
-              <div className="border-t border-slate-700 pt-6">
+              <div className="border-t border-zinc-700 pt-6">
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                   {rest.map((player, index) => (
-                    <div key={player.id} className="flex items-center gap-3 bg-slate-800/50 rounded-lg p-3">
-                      <span className="text-slate-500 font-mono">{index + 4}</span>
+                    <div key={player.id} className="flex items-center gap-3 bg-zinc-900 rounded-lg p-3 border border-zinc-700">
+                      <span className="text-zinc-200 font-mono">{index + 4}</span>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium text-slate-200 truncate">{player.name}</p>
+                        <p className="font-medium text-zinc-100 truncate">{player.name}</p>
                         <Badge role={player.role} className="mt-0.5">{player.role}</Badge>
                       </div>
-                      <span className="font-mono text-slate-400">{player.score || 0}</span>
+                      <span className="font-mono text-zinc-100">{player.score || 0}</span>
                     </div>
                   ))}
                 </div>
@@ -241,14 +248,14 @@ export default function FinalLeaderboard() {
                 { key: 'economic_growth', label: 'Growth', color: 'green' },
                 { key: 'public_trust', label: 'Trust', color: 'purple' },
                 { key: 'market_risk', label: 'Risk', color: 'red', inverted: true }
-              ].map(({ key, label, color, inverted }) => (
-                <div key={key} className={cn('p-4 rounded-xl', `bg-${color}-900/20`)}>
-                  <p className="text-sm text-slate-400 mb-1">{label}</p>
+              ].map(({ key, label, inverted }) => (
+                  <div key={key} className={cn('p-4 rounded-xl border border-zinc-700', finalStateClasses[key])}>
+                    <p className="text-sm text-zinc-200 mb-1">{label}</p>
                   <p className={cn(
                     'text-3xl font-bold',
                     inverted 
-                      ? gameState?.[key] > 70 ? 'text-red-400' : gameState?.[key] > 40 ? 'text-yellow-400' : 'text-green-400'
-                      : gameState?.[key] > 70 ? 'text-green-400' : gameState?.[key] > 40 ? 'text-yellow-400' : 'text-red-400'
+                      ? gameState?.[key] > 70 ? 'text-investor-600' : gameState?.[key] > 40 ? 'text-government-500' : 'text-bank-500'
+                      : gameState?.[key] > 70 ? 'text-bank-500' : gameState?.[key] > 40 ? 'text-government-500' : 'text-investor-600'
                   )}>
                     {gameState?.[key] || 0}
                   </p>

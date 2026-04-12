@@ -9,8 +9,8 @@ export function Progress({ value, max = 100, inverted = false, className, showLa
     <div className={cn('w-full', className)}>
       {showLabel && (
         <div className="flex justify-between text-sm mb-1">
-          <span className="text-slate-400">{label}</span>
-          <span className="text-slate-300 font-medium">{value}</span>
+          <span className="text-zinc-200">{label}</span>
+          <span className="text-zinc-50 font-medium">{value}</span>
         </div>
       )}
       <div className="metric-bar">

@@ -15,14 +15,14 @@ const eventIcons = {
 }
 
 const eventColors = {
-  financial_boom: 'bg-green-900/30 border-green-700 text-green-400',
-  market_crash_warning: 'bg-red-900/30 border-red-700 text-red-400',
-  election_pressure: 'bg-yellow-900/30 border-yellow-700 text-yellow-400',
-  media_scandal: 'bg-orange-900/30 border-orange-700 text-orange-400',
-  tech_innovation: 'bg-blue-900/30 border-blue-700 text-blue-400',
-  international_crisis: 'bg-purple-900/30 border-purple-700 text-purple-400',
-  regulatory_success: 'bg-green-900/30 border-green-700 text-green-400',
-  none: 'bg-slate-800/50 border-slate-700 text-slate-400'
+  financial_boom: 'bg-bank-900 border-bank-500 text-zinc-100',
+  market_crash_warning: 'bg-investor-900 border-investor-500 text-zinc-100',
+  election_pressure: 'bg-government-900 border-government-500 text-zinc-100',
+  media_scandal: 'bg-citizen-900 border-citizen-500 text-zinc-100',
+  tech_innovation: 'bg-government-900 border-government-500 text-zinc-100',
+  international_crisis: 'bg-zinc-900 border-zinc-700 text-zinc-100',
+  regulatory_success: 'bg-bank-900 border-bank-500 text-zinc-100',
+  none: 'bg-zinc-900 border-zinc-700 text-zinc-100'
 }
 
 export function EventAlert({ eventId }) {
@@ -35,20 +35,20 @@ export function EventAlert({ eventId }) {
   return (
     <div className={cn('p-4 rounded-xl border-2 animate-fade-in', colorClass)}>
       <div className="flex items-start gap-3">
-        <div className="p-2 rounded-lg bg-white/10">
+        <div className="p-2 rounded-lg bg-white/5">
           <Icon className="w-6 h-6" />
         </div>
         <div>
           <h3 className="font-semibold text-lg">{event.name}</h3>
-          <p className="text-sm opacity-80">{event.description}</p>
+          <p className="text-sm text-zinc-200">{event.description}</p>
           {event.effects && Object.keys(event.effects).length > 0 && (
             <div className="flex flex-wrap gap-2 mt-2">
               {Object.entries(event.effects).map(([key, value]) => (
                 <span 
                   key={key} 
                   className={cn(
-                    'text-xs px-2 py-1 rounded-full bg-white/10',
-                    value > 0 ? 'text-green-300' : 'text-red-300'
+                    'text-xs px-2 py-1 rounded-full bg-black/15',
+                    value > 0 ? 'text-bank-100' : 'text-investor-100'
                   )}
                 >
                   {key.replace('_', ' ')}: {value > 0 ? '+' : ''}{value}

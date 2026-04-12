@@ -14,6 +14,13 @@ import { useRealtime } from '../hooks/useRealtime'
 import { POLICIES, PHASES, ACTIONS } from '../lib/constants'
 import { cn } from '../lib/utils'
 
+const rolePanelClasses = {
+  government: 'bg-government-900',
+  bank: 'bg-bank-900',
+  investor: 'bg-investor-900',
+  citizen: 'bg-citizen-900'
+}
+
 export default function Results() {
   const { roomCode } = useParams()
   const navigate = useNavigate()
@@ -78,10 +85,10 @@ export default function Results() {
     <Layout>
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-zinc-900 mb-2">
+          <h1 className="text-3xl font-bold text-zinc-100 mb-2">
             Round {room?.current_round} Results
           </h1>
-          <p className="text-slate-400">
+          <p className="text-zinc-300">
             {isGovernment ? 'Review the round outcome' : 'See how your actions impacted the economy'}
           </p>
         </div>
@@ -92,13 +99,13 @@ export default function Results() {
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Policy */}
-                <div className="text-center p-4 bg-government-900/20 rounded-xl">
+                <div className="text-center p-4 bg-zinc-900 rounded-xl border border-government-700">
                   <Badge role="government" className="mb-2">Policy</Badge>
                   <h3 className="font-semibold text-zinc-100">{currentPolicy?.name || 'N/A'}</h3>
                 </div>
 
                 {/* Event */}
-                <div className="text-center p-4 bg-slate-800/50 rounded-xl">
+                <div className="text-center p-4 bg-zinc-900 rounded-xl border border-zinc-700">
                   <Badge variant="info" className="mb-2">Event</Badge>
                   <h3 className="font-semibold text-zinc-100">
                     {gameState?.current_event === 'none' ? 'Calm Markets' : 
@@ -110,14 +117,14 @@ export default function Results() {
                 {!isGovernment && (
                   <div className={cn(
                     'text-center p-4 rounded-xl',
-                    player?.role && `bg-${player.role}-900/20`
+                    player?.role && rolePanelClasses[player.role]
                   )}>
                     <Badge role={player?.role} className="mb-2">Your Action</Badge>
                     <h3 className="font-semibold text-zinc-100">{myAction?.name || 'No action'}</h3>
                     {myDecision?.score_change !== undefined && (
                       <p className={cn(
                         'text-lg font-bold mt-2',
-                        myDecision.score_change >= 0 ? 'text-green-400' : 'text-red-400'
+                        myDecision.score_change >= 0 ? 'text-bank-500' : 'text-investor-600'
                       )}>
                         {myDecision.score_change >= 0 ? '+' : ''}{myDecision.score_change} pts
                       </p>
@@ -141,10 +148,10 @@ export default function Results() {
                 <div className="space-y-4">
                   {Object.entries(stateChanges).map(([key, value]) => (
                     <div key={key} className="flex items-center justify-between">
-                      <span className="text-slate-300 capitalize">{key.replace(/_/g, ' ')}</span>
+                      <span className="text-zinc-100 capitalize">{key.replace(/_/g, ' ')}</span>
                       <span className={cn(
                         'flex items-center gap-1 font-semibold',
-                        value > 0 ? 'text-green-400' : value < 0 ? 'text-red-400' : 'text-slate-400'
+                        value > 0 ? 'text-bank-500' : value < 0 ? 'text-investor-600' : 'text-zinc-200'
                       )}>
                         {value > 0 ? <TrendingUp className="w-4 h-4" /> : value < 0 ? <TrendingDown className="w-4 h-4" /> : null}
                         {value > 0 ? '+' : ''}{value}
@@ -153,7 +160,7 @@ export default function Results() {
                   ))}
                 </div>
               ) : (
-                <p className="text-slate-500">No changes recorded</p>
+                <p className="text-zinc-300">No changes recorded</p>
               )}
             </CardContent>
           </Card>
@@ -180,9 +187,9 @@ export default function Results() {
         {/* Waiting for next round */}
         {!isGovernment && (
           <div className="mt-8 text-center">
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-slate-800 rounded-lg">
-              <RefreshCw className="w-5 h-5 text-slate-400 animate-spin" style={{ animationDuration: '3s' }} />
-              <span className="text-slate-300">Waiting for government to start next round...</span>
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-zinc-900 rounded-lg border border-zinc-700">
+              <RefreshCw className="w-5 h-5 text-zinc-300 animate-spin" style={{ animationDuration: '3s' }} />
+              <span className="text-zinc-100">Waiting for government to start next round...</span>
             </div>
           </div>
         )}

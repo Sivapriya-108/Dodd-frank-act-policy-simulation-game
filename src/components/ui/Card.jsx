@@ -5,7 +5,7 @@ export function Card({ children, className, glow = false, ...props }) {
   return (
     <div
       className={cn(
-        'bg-zinc-900/55 backdrop-blur-sm border border-zinc-700/70 rounded-xl shadow-lg shadow-black/25',
+        'bg-zinc-900 border border-zinc-700 rounded-xl shadow-xl shadow-black/35',
         glow && 'card-glow',
         className
       )}
@@ -18,7 +18,7 @@ export function Card({ children, className, glow = false, ...props }) {
 
 export function CardHeader({ children, className, ...props }) {
   return (
-    <div className={cn('px-6 py-4 border-b border-zinc-700/70', className)} {...props}>
+    <div className={cn('px-6 py-4 border-b border-zinc-700', className)} {...props}>
       {children}
     </div>
   )

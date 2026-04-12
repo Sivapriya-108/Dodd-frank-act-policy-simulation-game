@@ -11,6 +11,12 @@ export function ActionPanel({ role, onSubmit, disabled, currentAction }) {
   const [selected, setSelected] = useState(currentAction || null)
   const actions = ACTIONS[role] || []
   const roleColor = ROLE_COLORS[role]
+  const selectedRing = {
+    government: 'ring-government-500',
+    bank: 'ring-bank-500',
+    investor: 'ring-investor-500',
+    citizen: 'ring-citizen-500'
+  }[role] || 'ring-government-500'
 
   const handleSubmit = () => {
     if (selected) {
@@ -36,18 +42,17 @@ export function ActionPanel({ role, onSubmit, disabled, currentAction }) {
               disabled={disabled}
               className={cn(
                 'action-card text-left',
-                'border-slate-700 bg-slate-800/50',
-                selected === action.id && `action-card-selected ${roleColor?.border} ring-${roleColor?.primary}-500`,
+                selected === action.id && `action-card-selected ${roleColor?.border} ${selectedRing}`,
                 disabled && 'opacity-50 cursor-not-allowed'
               )}
             >
               <div className="flex items-start justify-between mb-2">
-                <h4 className="font-medium text-slate-200">{action.name}</h4>
+                <h4 className="font-medium text-zinc-100">{action.name}</h4>
                 {selected === action.id && (
                   <Check className={cn('w-5 h-5', roleColor?.text)} />
                 )}
               </div>
-              <p className="text-sm text-slate-400 mb-3">{action.description}</p>
+              <p className="text-sm text-zinc-200 mb-3">{action.description}</p>
               <div className="flex gap-2">
                 <Badge variant={action.risk > 2 ? 'danger' : action.risk > 0 ? 'warning' : 'success'}>
                   Risk: {action.risk}
@@ -61,9 +66,9 @@ export function ActionPanel({ role, onSubmit, disabled, currentAction }) {
         </div>
 
         {currentAction && (
-          <div className="flex items-center gap-2 p-3 bg-green-900/20 border border-green-800 rounded-lg">
-            <Check className="w-5 h-5 text-green-500" />
-            <span className="text-green-400">Action submitted - waiting for round to end</span>
+          <div className="flex items-center gap-2 p-3 bg-bank-900 border border-bank-500 rounded-lg">
+            <Check className="w-5 h-5 text-bank-100" />
+            <span className="text-zinc-100">Action submitted - waiting for round to end</span>
           </div>
         )}
 

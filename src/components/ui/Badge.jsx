@@ -6,11 +6,11 @@ export function Badge({ children, variant = 'default', role, className, ...props
   const roleClass = role ? `role-badge-${role}` : ''
   
   const variants = {
-    default: 'bg-zinc-800 text-zinc-300 border-zinc-600',
-    success: 'bg-green-900/50 text-green-400 border-green-700',
-    warning: 'bg-yellow-900/50 text-yellow-400 border-yellow-700',
-    danger: 'bg-red-900/50 text-red-400 border-red-700',
-    info: 'bg-blue-900/50 text-blue-400 border-blue-700'
+    default: 'bg-zinc-800 text-zinc-100 border-zinc-600',
+    success: 'bg-bank-700 text-zinc-950 border-bank-500',
+    warning: 'bg-government-700 text-zinc-950 border-government-500',
+    danger: 'bg-investor-700 text-zinc-950 border-investor-500',
+    info: 'bg-citizen-700 text-zinc-950 border-citizen-500'
   }
 
   return (

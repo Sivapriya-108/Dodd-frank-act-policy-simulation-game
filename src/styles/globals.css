@@ -4,12 +4,12 @@
 @tailwind utilities;
 
 :root {
-  --bg-ink: #fff8e8;
-  --bg-panel: #f5ead7;
-  --line-soft: #d7b77c;
-  --line-strong: #bf9454;
-  --text-main: #5a3d2b;
-  --text-muted: #8f6a42;
+  --bg-ink: #140d0b;
+  --bg-panel: #241813;
+  --line-soft: #4a3325;
+  --line-strong: #8f6a42;
+  --text-main: #f5ead7;
+  --text-muted: #d7b77c;
   --accent-gold: #e6c15c;
   --accent-amber: #f4a127;
   --accent-burnt: #e5771e;
@@ -20,9 +20,10 @@
   body {
     @apply antialiased;
     background:
-      radial-gradient(circle at 8% -12%, rgba(230, 193, 92, 0.3), transparent 38%),
-      radial-gradient(circle at 92% 6%, rgba(117, 140, 50, 0.16), transparent 34%),
-      linear-gradient(145deg, #fff8e8 0%, #f8edd9 45%, #f5e8d0 100%);
+      radial-gradient(circle at 8% -12%, rgba(230, 193, 92, 0.14), transparent 34%),
+      radial-gradient(circle at 92% 6%, rgba(117, 140, 50, 0.08), transparent 30%),
+      radial-gradient(circle at 50% 115%, rgba(244, 161, 39, 0.08), transparent 34%),
+      linear-gradient(145deg, #140d0b 0%, #1b120f 42%, #241813 100%);
     color: var(--text-main);
   }
   
@@ -34,16 +35,17 @@
 @layer components {
   .app-shell {
     background:
-      linear-gradient(to bottom, rgba(255, 248, 232, 0.98), rgba(247, 236, 215, 0.99)),
+      linear-gradient(to bottom, rgba(20, 13, 11, 0.98), rgba(33, 22, 18, 0.98)),
       repeating-linear-gradient(
         90deg,
-        rgba(90, 61, 43, 0.09) 0,
-        rgba(90, 61, 43, 0.09) 1px,
+        rgba(245, 234, 215, 0.035) 0,
+        rgba(245, 234, 215, 0.035) 1px,
         transparent 1px,
-        transparent 26px
+        transparent 24px
       ),
-      radial-gradient(circle at 12% -8%, rgba(244, 161, 39, 0.22), transparent 30%),
-      radial-gradient(circle at 92% 6%, rgba(117, 140, 50, 0.16), transparent 28%);
+      radial-gradient(circle at 12% -8%, rgba(244, 161, 39, 0.12), transparent 28%),
+      radial-gradient(circle at 92% 6%, rgba(117, 140, 50, 0.08), transparent 26%),
+      linear-gradient(180deg, #140d0b 0%, #1b120f 48%, #221713 100%);
   }
 
   .card-glow {
@@ -55,7 +57,7 @@
     @apply absolute inset-0 opacity-0 transition-opacity duration-300;
     background: radial-gradient(
       600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(255, 255, 255, 0.06),
+      rgba(230, 193, 92, 0.08),
       transparent 40%
     );
   }
@@ -65,7 +67,7 @@
   }
 
   .metric-bar {
-    @apply h-2 rounded-full overflow-hidden bg-zinc-300;
+    @apply h-2 rounded-full overflow-hidden bg-zinc-800;
   }
 
   .metric-bar-fill {
@@ -73,28 +75,28 @@
   }
 
   .role-badge-government {
-    @apply bg-government-900/50 text-government-400 border-government-700;
+    @apply bg-government-600 text-zinc-950 border-government-400;
   }
 
   .role-badge-bank {
-    @apply bg-bank-900/50 text-bank-400 border-bank-700;
+    @apply bg-bank-600 text-zinc-950 border-bank-400;
   }
 
   .role-badge-investor {
-    @apply bg-investor-900/50 text-investor-400 border-investor-700;
+    @apply bg-investor-600 text-zinc-950 border-investor-400;
   }
 
   .role-badge-citizen {
-    @apply bg-citizen-900/50 text-citizen-400 border-citizen-700;
+    @apply bg-citizen-600 text-zinc-950 border-citizen-400;
   }
 
   .action-card {
     @apply p-4 rounded-xl border-2 cursor-pointer transition-all duration-200;
-    @apply hover:scale-[1.02] active:scale-[0.98];
+    @apply bg-zinc-900 border-zinc-700 shadow-lg shadow-black/20 hover:-translate-y-0.5 hover:border-government-500 hover:shadow-black/35 active:scale-[0.99];
   }
 
   .action-card-selected {
-    @apply ring-2 ring-offset-2 ring-offset-zinc-100;
+    @apply ring-2 ring-offset-2 ring-offset-zinc-950;
   }
 }
 
@@ -105,7 +107,7 @@
 
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: rgb(51 65 85) transparent;
+    scrollbar-color: rgb(90 61 43) transparent;
   }
 
   .scrollbar-thin::-webkit-scrollbar {

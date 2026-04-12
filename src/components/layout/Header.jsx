@@ -15,7 +15,7 @@ export function Header() {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#f6f1e7]/95 backdrop-blur-md border-b border-zinc-300">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/95 backdrop-blur-md border-b border-zinc-800 shadow-lg shadow-black/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-3">
@@ -23,9 +23,9 @@ export function Header() {
               <Landmark className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-zinc-900 tracking-tight">Dodd-Frank Simulation</h1>
+              <h1 className="text-lg font-semibold text-zinc-100 tracking-tight">Dodd-Frank Simulation</h1>
               {room && (
-                <p className="text-xs text-zinc-700">Room: {room.code}</p>
+                <p className="text-xs text-zinc-300">Room: {room.code}</p>
               )}
             </div>
           </div>
@@ -34,7 +34,7 @@ export function Header() {
             {player && (
               <div className="flex items-center gap-3">
                 <div className="text-right hidden sm:block">
-                  <p className="text-sm font-medium text-zinc-900">{player.name}</p>
+                  <p className="text-sm font-medium text-zinc-100">{player.name}</p>
                   {player.role && (
                     <Badge role={player.role} className="mt-0.5">
                       {player.role.charAt(0).toUpperCase() + player.role.slice(1)}
