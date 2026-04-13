@@ -41,6 +41,16 @@ export function GameProvider({ children }) {
     }
   }, [player])
 
+  // Keep the active player in sync with fresh player rows from Supabase.
+  useEffect(() => {
+    if (!player || players.length === 0) return
+
+    const updatedPlayer = players.find(p => p.id === player.id)
+    if (updatedPlayer && updatedPlayer !== player) {
+      setPlayer(updatedPlayer)
+    }
+  }, [players, player])
+
   const createRoom = useCallback(async (name, playerName) => {
     setLoading(true)
     setError(null)
